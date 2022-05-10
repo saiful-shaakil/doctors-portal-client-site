@@ -35,12 +35,12 @@ const ContactUs = () => {
             className="w-1/4 mb-4 h-40 py-2 px-5 rounded-md text-xl"
             placeholder="Your Message"
             cols="50"
-            maxlength="200"
+            maxLength="200"
           ></textarea>
           <br />
           <button
             type="submit"
-            class="btn btn-primary uppercase font-bold bg-gradient-to-r from-secondary to-primary text-white"
+            className="btn btn-primary uppercase font-bold bg-gradient-to-r from-secondary to-primary text-white"
           >
             Get Started
           </button>

@@ -3,8 +3,8 @@ import React from "react";
 const Review = ({ each }) => {
   const { name, review, img, location } = each;
   return (
-    <div class="card bg-base-100 shadow-xl">
-      <div class="card-body">
+    <div className="card bg-base-100 shadow-xl">
+      <div className="card-body">
         <p>{review}</p>
         <div className="flex items-center mt-5">
           <div>

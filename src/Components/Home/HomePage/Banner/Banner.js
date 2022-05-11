@@ -8,7 +8,7 @@ const Banner = () => {
       style={{
         background: `url(${bannerBg})`,
         backgroundPosition: "center",
-        backgroundSize: "cover",
+        backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
       }}
       className="hero min-h-screen"

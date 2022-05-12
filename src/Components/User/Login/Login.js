@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 import {
+  useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import LoadingPage from "../../OtherPages/LoadingPage";
+import { toast } from "react-toastify";
 
 const Login = () => {
   //to navigate the user
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  //to get email for password reset
+  const [sendPasswordResetEmail, sending, error] =
+    useSendPasswordResetEmail(auth);
+  const useEmail = useRef("");
   //to login by email and password
   const [
     signInWithEmailAndPassword,
@@ -27,11 +33,23 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    signInWithEmailAndPassword(email, password);
+    if (!email || !password) {
+      toast("Please fill the form first.");
+    }
+    if (email && password) {
+      signInWithEmailAndPassword(email, password);
+    }
   };
   //to sign in by google
   const signInByGoogle = () => {
     signInWithGoogle();
+  };
+  //to reset password
+  const forgetPassword = (e) => {
+    const email = useEmail.current.value;
+    if (email) {
+      sendPasswordResetEmail(email);
+    }
   };
   //to show loading
   if (loadingOfEmail || loadingOfGoog) {
@@ -49,6 +67,7 @@ const Login = () => {
             <label htmlFor="email">Email</label>
             <input
               type="email"
+              ref={useEmail}
               className="my-2 border-2 py-1 px-3 w-full rounded-md"
               name="email"
               id="email"
@@ -62,7 +81,7 @@ const Login = () => {
               id="password"
             />
             <br />
-            <button>Forget Password?</button>
+            <button onClick={forgetPassword}>Forget Password?</button>
             <input
               type="submit"
               className="btn btn-primary uppercase font-bold bg-gradient-to-r from-gray-800 mt-2 w-full to-gray-900 text-white"

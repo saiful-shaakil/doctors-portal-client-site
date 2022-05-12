@@ -40,9 +40,9 @@ const Register = () => {
   }
   return (
     <div className="flex justify-center mt-10 mb-20">
-      <div class="card w-96 bg-base-100 shadow-xl">
-        <div class="card-body">
-          <h2 class="text-2xl font-semibold text-center">Register</h2>
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="text-2xl font-semibold text-center">Register</h2>
           <form onSubmit={formSubmit}>
             <label htmlFor="name">Name</label>
             <input
@@ -84,7 +84,7 @@ const Register = () => {
             />{" "}
             <br />
           </form>
-          <div class="text-center rounded-box place-items-center">
+          <div className="text-center rounded-box place-items-center">
             Already have an account? &nbsp;
             <Link to="/login" className="text-secondary">
               Log In

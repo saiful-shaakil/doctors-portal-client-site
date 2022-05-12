@@ -45,10 +45,10 @@ const Login = () => {
     signInWithGoogle();
   };
   //to reset password
-  const forgetPassword = (e) => {
-    const email = useEmail.current.value;
+  const forgetPassword = async (e) => {
+    const email = useEmail?.current?.value;
     if (email) {
-      sendPasswordResetEmail(email);
+      await sendPasswordResetEmail(email);
     }
   };
   //to show loading
@@ -60,9 +60,9 @@ const Login = () => {
   }
   return (
     <div className="flex justify-center mt-10 mb-20">
-      <div class="card w-96 bg-base-100 shadow-xl">
-        <div class="card-body">
-          <h2 class="text-2xl font-semibold text-center">Login</h2>
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="text-2xl font-semibold text-center">Login</h2>
           <form onSubmit={formSubmit}>
             <label htmlFor="email">Email</label>
             <input
@@ -90,15 +90,15 @@ const Login = () => {
             />{" "}
             <br />
           </form>
-          <div class="flex flex-col w-full border-opacity-50">
-            <div class="text-center rounded-box place-items-center">
+          <div className="flex flex-col w-full border-opacity-50">
+            <div className="text-center rounded-box place-items-center">
               New to Doctors Portal?{" "}
               <Link to="/register" className="text-secondary">
                 Create New Account
               </Link>
             </div>
-            <div class="divider">OR</div>
-            <div class="rounded-box place-items-center">
+            <div className="divider">OR</div>
+            <div className="rounded-box place-items-center">
               <button
                 onClick={signInByGoogle}
                 className="btn bg-white text-black w-full hover:text-white"

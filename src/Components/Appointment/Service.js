@@ -3,16 +3,16 @@ import React from "react";
 const Service = ({ service, setTreatment }) => {
   const { name, slots } = service;
   return (
-    <div class="card bg-base-100 shadow-xl text-center">
-      <div class="card-body">
-        <h2 class="text-xl font-bold text-secondary text-center">{name}</h2>
+    <div className="card bg-base-100 shadow-xl text-center">
+      <div className="card-body">
+        <h2 className="text-xl font-bold text-secondary text-center">{name}</h2>
         {slots.length ? (
           <span>{slots[0]}</span>
         ) : (
           <span>No slot available this date.</span>
         )}{" "}
         {slots.length} {slots.length > 1 ? "seats" : "seat"} availabe.
-        <div class="card-actions"></div>
+        <div className="card-actions"></div>
         <label
           disabled={slots.length === 0}
           for="form-modal"

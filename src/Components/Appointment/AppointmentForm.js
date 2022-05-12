@@ -9,10 +9,10 @@ const AppointmentForm = ({ treatment, date }) => {
   };
   return (
     <div>
-      <input type="checkbox" id="form-modal" class="modal-toggle" />
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-          <h3 class="font-bold text-lg">{name}</h3>
+      <input type="checkbox" id="form-modal" className="modal-toggle" />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">{name}</h3>
           <form onSubmit={formSubmit}>
             <input
               type="text"
@@ -60,10 +60,10 @@ const AppointmentForm = ({ treatment, date }) => {
             />{" "}
             <br />
           </form>
-          <div class="modal-action">
+          <div className="modal-action">
             <label
               for="form-modal"
-              class="btn btn-sm btn-circle absolute right-2 top-2"
+              className="btn btn-sm btn-circle absolute right-2 top-2"
             >
               ✕
             </label>

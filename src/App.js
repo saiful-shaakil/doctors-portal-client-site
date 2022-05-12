@@ -4,6 +4,7 @@ import Appointment from "./Components/Appointment/Appointment";
 import Footer from "./Components/Home/HomePage/Footer/Footer";
 import HomePage from "./Components/Home/HomePage/HomePage";
 import NotFoundPage from "./Components/OtherPages/NotFoundPage";
+import RequireAuth from "./Components/OtherPages/RequireAuth";
 import Navbar from "./Components/Shared/Navbar/Navbar";
 import Login from "./Components/User/Login/Login";
 import Register from "./Components/User/Register/Register";
@@ -14,7 +15,14 @@ function App() {
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/appointment" element={<Appointment />}></Route>
+        <Route
+          path="/appointment"
+          element={
+            <RequireAuth>
+              <Appointment />
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="*" element={<NotFoundPage />}></Route>

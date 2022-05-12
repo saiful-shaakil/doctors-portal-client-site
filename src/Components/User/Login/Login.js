@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 import {
   useSignInWithEmailAndPassword,
@@ -8,6 +8,10 @@ import {
 import LoadingPage from "../../OtherPages/LoadingPage";
 
 const Login = () => {
+  //to navigate the user
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   //to login by email and password
   const [
     signInWithEmailAndPassword,
@@ -32,6 +36,9 @@ const Login = () => {
   //to show loading
   if (loadingOfEmail || loadingOfGoog) {
     return <LoadingPage></LoadingPage>;
+  }
+  if (userOfEmail || userOfGoog) {
+    navigate(from, { replace: true });
   }
   return (
     <div className="flex justify-center mt-10 mb-20">

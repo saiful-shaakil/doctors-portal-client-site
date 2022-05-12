@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
@@ -9,6 +9,10 @@ import LoadingPage from "../../OtherPages/LoadingPage";
 import { toast } from "react-toastify";
 
 const Register = () => {
+  //to navigate the user
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   //to create account by email and password
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
@@ -30,6 +34,9 @@ const Register = () => {
   };
   if (loading || updating) {
     return <LoadingPage></LoadingPage>;
+  }
+  if (user) {
+    navigate(from, { replace: true });
   }
   return (
     <div className="flex justify-center mt-10 mb-20">

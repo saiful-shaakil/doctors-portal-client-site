@@ -14,6 +14,7 @@ const Service = ({ service, setTreatment }) => {
         {slots.length} {slots.length > 1 ? "seats" : "seat"} availabe.
         <div class="card-actions"></div>
         <label
+          disabled={slots.length === 0}
           for="form-modal"
           onClick={() => setTreatment(service)}
           className="btn btn-primary uppercase font-bold bg-gradient-to-r from-secondary to-primary text-white"

@@ -3,13 +3,17 @@ import React from "react";
 
 const AppointmentForm = ({ treatment, date }) => {
   const { name, slots } = treatment;
+  const formSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target.slot.value);
+  };
   return (
     <div>
       <input type="checkbox" id="form-modal" class="modal-toggle" />
       <div class="modal modal-bottom sm:modal-middle">
         <div class="modal-box">
           <h3 class="font-bold text-lg">{name}</h3>
-          <form>
+          <form onSubmit={formSubmit}>
             <input
               type="text"
               className="my-2 border-2 py-1 bg-gray-300 px-3 w-full rounded-md"

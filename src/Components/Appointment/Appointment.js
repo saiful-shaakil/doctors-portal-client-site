@@ -12,7 +12,7 @@ const Appointment = () => {
   const [treatment, setTreatment] = useState(null);
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch("services.json")
+    fetch("https://blooming-taiga-86351.herokuapp.com/treatment")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);

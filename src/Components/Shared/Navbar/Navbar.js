@@ -4,7 +4,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import auth from "../../../firebase.init";
 import LoadingPage from "../../OtherPages/LoadingPage";
-import "./Navbar.css";
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -31,6 +30,13 @@ const Navbar = () => {
       <li>
         <Link to="/about">About</Link>
       </li>
+      {user ? (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      ) : (
+        ""
+      )}
       {user ? (
         <li>
           <button onClick={signOutUser}>Sign Out</button>

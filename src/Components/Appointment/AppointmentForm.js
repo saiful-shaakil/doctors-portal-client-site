@@ -1,11 +1,41 @@
 import { format } from "date-fns";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 
 const AppointmentForm = ({ treatment, date }) => {
-  const { name, slots } = treatment;
+  const [user, loading, error] = useAuthState(auth);
+  const { _id, name, slots } = treatment;
   const formSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.slot.value);
+    const booking = {
+      treatmentId: _id,
+      treatmentName: name,
+      slot: e.target.slot.value,
+      patientName: user.displayName,
+      patientEmail: user.email,
+      patientMobile: e.target.mobile.value,
+      date: format(date, "PP"),
+    };
+    fetch("https://blooming-taiga-86351.herokuapp.com/booking", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.success);
+        if (data.success === false) {
+          toast(`You already submit an appointment ${name} at ${date}`);
+        }
+        if (data.success === true) {
+          toast(`Appoinment is submitted ${name} at ${date}`);
+        }
+      });
+    console.log(booking);
   };
   return (
     <div>
@@ -22,7 +52,11 @@ const AppointmentForm = ({ treatment, date }) => {
               id=""
             />{" "}
             <br />
-            <select className="select select-bordered w-full my-1 border-2 bg-gray-300 px-3 rounded-md">
+            <select
+              id="slot"
+              aria-readonly
+              className="select select-bordered w-full my-1 border-2 bg-gray-300 px-3 rounded-md"
+            >
               {slots.map((slot) => (
                 <option>{slot}</option>
               ))}
@@ -31,7 +65,15 @@ const AppointmentForm = ({ treatment, date }) => {
             <input
               type="text"
               className="my-2 border-2 py-1 px-3 w-full rounded-md"
-              placeholder="Your Name"
+              value={user.displayName}
+              name=""
+              id=""
+            />{" "}
+            <br />
+            <input
+              type="email"
+              className="my-2 border-2 py-1 px-3 w-full rounded-md"
+              value={user.email}
               name=""
               id=""
             />{" "}
@@ -40,16 +82,9 @@ const AppointmentForm = ({ treatment, date }) => {
               type="text"
               className="my-2 border-2 py-1 px-3 w-full rounded-md"
               placeholder="Your Mobile Number"
-              name=""
-              id=""
-            />{" "}
-            <br />
-            <input
-              type="email"
-              className="my-2 border-2 py-1 px-3 w-full rounded-md"
-              placeholder="Your Email"
-              name=""
-              id=""
+              name="mobile"
+              id="mobile"
+              required
             />{" "}
             <br />
             <input
@@ -62,7 +97,7 @@ const AppointmentForm = ({ treatment, date }) => {
           </form>
           <div className="modal-action">
             <label
-              for="form-modal"
+              htmlFor="form-modal"
               className="btn btn-sm btn-circle absolute right-2 top-2"
             >
               ✕

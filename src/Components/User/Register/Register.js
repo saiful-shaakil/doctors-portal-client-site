@@ -7,6 +7,7 @@ import {
 import auth from "../../../firebase.init";
 import LoadingPage from "../../OtherPages/LoadingPage";
 import { toast } from "react-toastify";
+import useToken from "../../../hooks/useToken";
 
 const Register = () => {
   //to navigate the user
@@ -18,6 +19,7 @@ const Register = () => {
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   //to update name
   const [updateProfile, updating, errorOfProf] = useUpdateProfile(auth);
+  const [token] = useToken(user);
   const formSubmit = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;

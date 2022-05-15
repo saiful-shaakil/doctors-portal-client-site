@@ -8,6 +8,7 @@ import {
 } from "react-firebase-hooks/auth";
 import LoadingPage from "../../OtherPages/LoadingPage";
 import { toast } from "react-toastify";
+import useToken from "../../../hooks/useToken";
 
 const Login = () => {
   //to navigate the user
@@ -28,6 +29,8 @@ const Login = () => {
   //to sign in by google
   const [signInWithGoogle, userOfGoog, loadingOfGoog, errorOfGoog] =
     useSignInWithGoogle(auth);
+  //use token
+  const [token] = useToken(userOfEmail || userOfGoog);
   //to create user
   const formSubmit = (e) => {
     e.preventDefault();

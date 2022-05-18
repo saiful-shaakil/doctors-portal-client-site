@@ -9,6 +9,7 @@ import {
 import LoadingPage from "../../OtherPages/LoadingPage";
 import { toast } from "react-toastify";
 import useToken from "../../../hooks/useToken";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Login = () => {
   //to navigate the user
@@ -67,7 +68,7 @@ const Login = () => {
         <div className="card-body">
           <h2 className="text-2xl font-semibold text-center">Login</h2>
           <form onSubmit={formSubmit}>
-            <label htmlhtmlFor="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               ref={useEmail}
@@ -76,7 +77,7 @@ const Login = () => {
               id="email"
             />
             <br />
-            <label htmlhtmlFor="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               className="my-2 border-2 py-1 px-3 w-full rounded-md"

@@ -6,7 +6,7 @@ const useToken = (user) => {
     const email = user?.user?.email;
     const userEmail = { email: email };
     if (email) {
-      fetch(`https://blooming-taiga-86351.herokuapp.com/${email}`, {
+      fetch(`https://blooming-taiga-86351.herokuapp.com/user/${email}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

@@ -1,12 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Appointment from "./Components/Appointment/Appointment";
+import AllUsers from "./Components/Dashboard/AllUsers";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import MyAppoinments from "./Components/Dashboard/MyAppoinments";
 import MyReviews from "./Components/Dashboard/MyReviews";
 import Footer from "./Components/Home/HomePage/Footer/Footer";
 import HomePage from "./Components/Home/HomePage/HomePage";
 import NotFoundPage from "./Components/OtherPages/NotFoundPage";
+import RequireAdmin from "./Components/OtherPages/RequireAdmin";
 import RequireAuth from "./Components/OtherPages/RequireAuth";
 import Navbar from "./Components/Shared/Navbar/Navbar";
 import Login from "./Components/User/Login/Login";
@@ -26,7 +28,14 @@ function App() {
             </RequireAuth>
           }
         ></Route>
-        <Route path="/dashboard" element={<Dashboard></Dashboard>}>
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard></Dashboard>
+            </RequireAuth>
+          }
+        >
           <Route
             path="/dashboard"
             element={<MyAppoinments></MyAppoinments>}
@@ -34,6 +43,14 @@ function App() {
           <Route
             path="/dashboard/reviews"
             element={<MyReviews></MyReviews>}
+          ></Route>
+          <Route
+            path="/dashboard/user"
+            element={
+              <RequireAdmin>
+                <AllUsers></AllUsers>
+              </RequireAdmin>
+            }
           ></Route>
         </Route>
         <Route path="/login" element={<Login />}></Route>

@@ -1,24 +1,39 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import LoadingPage from "../OtherPages/LoadingPage";
 
 const MyAppoinments = () => {
-  const [user, loading] = useAuthState(auth);
   const [appointments, setAppointments] = useState([]);
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
   useEffect(() => {
-    fetch(
-      `https://blooming-taiga-86351.herokuapp.com/booking?email=${user?.email}`
-    )
-      .then((res) => res.json())
+    const token = localStorage.getItem("accessToken");
+    fetch(`https://blooming-taiga-86351.herokuapp.com/booking/${user?.email}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 403) {
+          navigate("/login");
+          signOut(auth);
+          localStorage.removeItem("accessToken");
+        }
+        return res.json();
+      })
       .then((data) => setAppointments(data));
   }, [user]);
   if (loading) {
     return <LoadingPage></LoadingPage>;
   }
-  return (
-    <div class="overflow-x-auto">
-      <table class="table w-full">
+  return appointments.length > 0 ? (
+    <div className="overflow-x-auto">
+      <table className="table w-full">
         <thead>
           <tr>
             <th>No.</th>
@@ -41,6 +56,13 @@ const MyAppoinments = () => {
         </tbody>
       </table>
     </div>
+  ) : (
+    <>
+      You didn't add any appointment.{" "}
+      <Link className="text-secondary" to="/appointment">
+        Add Now
+      </Link>
+    </>
   );
 };
 

@@ -14,6 +14,7 @@ const AllUsers = () => {
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
+  // loading component
   if (loading) {
     return <LoadingPage></LoadingPage>;
   }
